@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>all the books added <br>
+                <h1 class="indexTitle">all the books added <br>
                 <p class="paragrafo">all the books are clickable for other informations</p></h1>
             </div>
         </div>

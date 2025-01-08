@@ -73,6 +73,9 @@ h1{
     font-size: 150px;
     font-weight: 100;
     line-height: 120px;
+    position: relative;
+    top: 20px;
+    padding-bottom: 50px;
 }
 
 .form-label{
@@ -139,4 +142,8 @@ bottom: 40px;
 
 .errore{
     font-weight: 10;
+}
+
+.indexTitle{
+    padding-bottom: 0;
 }
