@@ -2,7 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>all the books added</h1>
+                <h1>all the books added <br>
+                <p class="paragrafo">all the books are clickable for other informations</p></h1>
             </div>
         </div>
     </div>
@@ -10,7 +11,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @foreach ($books as $book)
-            <div class="col-4 col-md-3 m-1">
+            <div class="col-12 col-md-3">
                 <x-card :book="$book">
 
                 </x-card>
