@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @foreach ($books as $book)
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 col-sm-10">
                 <x-card :book="$book">
 
                 </x-card>
