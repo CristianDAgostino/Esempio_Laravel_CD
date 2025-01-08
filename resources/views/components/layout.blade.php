@@ -30,7 +30,7 @@
 }
 
 /* Bottoni con maggiore specificità */
-button, .btn, .custom-cursor button, .custom-cursor .btn, .form-label {
+button, .btn, .custom-cursor button, .custom-cursor .btn, .form-label, .form-control {
     cursor: url('/images/cursor.cur'), auto; /* Imposta il cursore personalizzato */
 }
     </style>
