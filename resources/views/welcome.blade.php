@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-12 vh-100 wh-100 d-flex justify-content-center align-items-center">
                 <div class="sliderWrapper">
-                    BOOK
+                    BOOK/
                     <div class="slider">
                         <div class="slider-text1">SHARE</div>
                         <div class="slider-text2">SHELF</div>
