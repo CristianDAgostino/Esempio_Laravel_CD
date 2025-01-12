@@ -79,3 +79,85 @@ se ti arriva una richiesta la cambi altrimenti mi lasci l'attuale -->
 @method('PUT')
 25. per eliminare rotta delete e la funzione si chiama destroy
 26. aggiungere form di tipo post e overwrite bottone di type submit
+
+
+# realzione one to many per andare a gestire un utente che mette in relazione un utente che in questo caso con tanti libri
+Ogni campo è relazionato ad un campo
+1. aggiungere colonna alla migrazione di create books table
+2. php artisan make:migration add_user_id_column_to_books_table
+
+
+creami una migrazione aggiungendo una colonna che si chiama user_id alla books table.
+
+DALLA DOCUMENTAZIONE
+3. e nella migrazione adesso usare unsignedBigInteger cioè intero senza segno autoincrementale.
+4. chiamare poi la chiave esterna che si riferisce all'id degli utenti
+5. gestire down delle migrazione sempre dalla documentazione in KEY
+6. dobbiamo droppare la colonna e prima ancora scegliere il vincolo di integrità referenziale
+7. adesso che ci sono anche dati nel database devo fare in modo che la nuova colonna faccia riferimento anche ai dati registrati prima attribuendo anche un valore nullable
+8. nella funzione up allora 
+9. Nel modello USER: 
+<!--  public function books(){
+        return $this->hasMany(Book::class);
+    } -->
+10. e nella tabella Book adesso fare il contrario però adesso i book appartengono ad un utente
+<!-- ublic function user(){
+        return $this->belongsTo(User::class);
+    } -->
+11. andare in bookController nella funzione create e andare ad inserire user_id con classe AUTH di andare in user e prendere id e aggiungerlo in Book.php il fillable
+12. quindi per eseguire in questo caso l'aggiunta del libro bisogna essere AUTH
+13. per mostrare adesso il nome e lo user id tipo inserito da: user fa parte dell'oggetto song e quindi si può accedere alla funzione alla tabella degli utenti con 
+<!-- {{$book->user->name}} -->
+DALLA FUNZIONE USER MI VAI A PRENDERE IL NOME
+14. però se è stata inserita da qualcuno che non ha lo user id e si può usare l'operatore ternario
+<!-- {{$book->user_id ? $book->user->name : 'unknown user'}} -->
+Se esiste qualcosa altrimenti mi fai.
+OPPURE: 
+<!-- {{$song->user->name ?? 'unknown user'}} -->
+# andare ad entrare nella tabella song e poi user si chiama TRAVERSAMENTO DEL MODELLO, si parte dall'oggetto di classe song e richiamo modello user e ho accesso a tutti i dati.
+15. adesso andare nella show per permettere solo all'utente con ID di modificare ed eliminare i propri libri PRIMA LATO FRONTEND con un if 
+<!--  @if (Auth::user() && Auth::user()->id == $song->user->id) -->
+Se l'utente è loggato e l'id dell'utente loggato è uguale all'id che ha inserito il libro me li fai vedere
+17. però adesso andrebbe in errore la visualizzazione della pagina per coloro che non hanno un 'id' per cui andare a modificare la logica e ottimizzare il codice inserendo @auth ed @endauth quindi sarà nella pagina show:
+<!-- @if (Auth::user()->id == $book->user_id || $book->user_id == NULL) -->
+quindi vedrà i bottoni di coloro che sono utenti sconosciuti altrimenti non può modificare quelli di altri utenti
+16. adesso andare a verificare anche backend
+17. andare nel bookController nella edit 
+<!-- if(Auth::user()->id == $book->user_id){
+            return view('book.edit', compact('book'));
+        } -->
+se l'utente è loggato e ha l'id uguale all'utente che ha inserito il libro mi ritorni la vista.
+altrimenti return 
+<!-- return redirect()->back()->with('denied', 'denied access'); -->
+18. andare nel layout e e richiamare il messaggio chiamato denied
+19. adesso dobbiamo farlo anche per la update nel bookController e nella destroy e lo incollo per primo e spostare dentro l'if anche eventuali messaggi e il redirect back fuori seguire quindi BENE nella edit la forma
+
+# creare dashboard utente per andare a vedere quali canzoni ha inserito l'utente
+1. rotta
+2. PublicController per pulizia e quindi si visualizza e inseriamo il middleware per permettere solo agli autenticati di poterlo fare
+13. implements HasMiddleware e importare classe 
+14. static function che ritorna un array
+<!-- 
+    public static function middleware(){
+        return[
+            new Middleware('auth', only: ['dashboard'])
+        ];
+    } -->
+crea una funzione middleware che si chiama auth SOLO alla dashboard 
+15. creare pagina che abbiamo chiamato auth.dashboard quindi views>auth>dashboard e riempirla
+16. tramite la tabella books e parto dall'utente loggato e vado a recuperare tutte le canzoni dell'utente
+17. per richiamare il nome non serve fare la cosa della show e richiamarla in quel modo basta Auth::user()->name perché siamo autenticati
+18. creare l'impaginazione con le cards copiandola dalla index e però nonn abbiamo books as book perché dobbiamo ricordare che siamo loggati e fare queste azioni solo da loggati con questo foreach
+<!--  @foreach (Auth::user()->books as $book) -->
+19. la query del foreach sulla dash board è lato frontend ma si può fare backend e andare nel publicController nella funzione dashboard e creare una variabile books e recuperare tutte le mie canzoni
+<!--  $books = Book::where('user_id', Auth::user()->id)->get();   -->
+Nella tabella delle canzoni trova user_id e vedi se è la colonna dell'utente attualmente loggato e mi prendi i dati delle canzoni molto più specificato
+se l'id è uguale a quella dell'utente mi mostri i dati, li prendi
+20. fare una compact nella view dandoli alla vista
+21. quindi il foreach se la query è backend sarà:
+<!--  @foreach($books as $book) -->
+# inserire le ultime 3 cards inserite
+1. funzione homepage nel publicController
+<!--  $books = Book::orderBy('created_at', 'desc')->take(3)->get(); -->
+creo una variabile books e nella tabella Book me li ordini dalla colonna created at in modo decrescente e me ne prendi 3 e li porti alla vista
+2. mettere la compact di songs

@@ -7,7 +7,7 @@
     font-size: 200px;
     font-weight: 10;
     overflow: hidden; /* Nasconde l'overflow */
-    width: 100%; /* Imposta la larghezza del wrapper */
+    width: 80%; /* Imposta la larghezza del wrapper */
     height: 200px; /* Imposta un'altezza fissa per il contenitore */
 }
 
@@ -19,6 +19,8 @@
     animation: slide 5s infinite;
     overflow: hidden; /* Nasconde l'overflow */
 }
+
+
 
 .slider div {
     color: black;
@@ -93,6 +95,10 @@ h1{
     width: 130px;
 }
 
+.card{
+    margin-bottom: 20px;
+}
+
 .btn:hover{
     transition: .5s;
     transform: translateY(-10%);
@@ -119,6 +125,7 @@ h1{
 
 .coverShow{
     height: 500px;
+    object-fit: cover;
 }
 
 h4{
@@ -130,10 +137,10 @@ p{
 }
 
 .paragrafo{
-padding-left: 10px;
-position: relative;
-font-size: 17px;
-bottom: 40px;
+    padding-left: 10px;
+    position: relative;
+    font-size: 17px;
+    bottom: 40px;
 }
 
 .dropdown-item{

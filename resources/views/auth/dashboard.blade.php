@@ -2,15 +2,15 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="indexTitle">all the books added <br>
-                <p class="paragrafo">all the books are clickable for other informations</p></h1>
+                <h1>{{Auth::user()->name}}'s board//</h1>
             </div>
         </div>
     </div>
-    
+
     <div class="container vh-100">
         <div class="row justify-content-center">
-            @foreach ($books as $book)
+            {{-- @foreach (Auth::user()->books as $book) --}}
+            @foreach($books as $book)
             <div class="col-12 col-md-3 col-sm-10">
                 <x-card :book="$book">
 
@@ -19,10 +19,4 @@
             @endforeach
         </div>
     </div>
-
-
-    
-    
-
-    
 </x-layout>
