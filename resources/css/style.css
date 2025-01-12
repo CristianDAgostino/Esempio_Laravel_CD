@@ -105,6 +105,10 @@ h1{
     font-size: 35px;
 }
 
+.btn:not(:hover){
+    transition: .5s;
+}
+
 .navbar-brand{
     font-weight: 500;
 }

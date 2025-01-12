@@ -77,7 +77,7 @@ class BookController extends Controller
             ]);
             return redirect(route('home'))->with('message', 'book updated successfully');
         }
-        return redirect()->back()->with('denied', 'denied access');
+        return redirect()->back()->with('denied', 'access denied');
     }
     
     /**
